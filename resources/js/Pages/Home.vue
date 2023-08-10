@@ -43,7 +43,9 @@ const props = defineProps({
     totalBalance: Number,
     totalExpense: Number,
     categories: Object,
+    msg: String,
 })
+
 
 
 </script>

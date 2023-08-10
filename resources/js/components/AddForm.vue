@@ -45,13 +45,14 @@ import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue';
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
-import { usePage } from '@inertiajs/vue3'
+import { usePage, router } from '@inertiajs/vue3'
 
 const showBalanceForm = ref(true);
 const showExpenseForm = ref(false);
 
-defineProps({
-    categories: Object
+const props = defineProps({
+    categories: Object,
+    msg: String,
 })
 
 function swapTb() {
@@ -92,11 +93,11 @@ function balanceForm() {
 function expenseForm() {
     form2.post('/add-expense', {
         onSuccess: () => {
-
             Toastify({
-                text: page.props.flash.msg,
+                text: 'Expense added',
                 className: "bg-blue-500",
             }).showToast();
+            router.visit('/');
         }
     })
 }

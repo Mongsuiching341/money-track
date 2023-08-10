@@ -6,6 +6,7 @@ use App\Models\Expense;
 use App\Models\Income;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ExpenseController extends Controller
 {
@@ -32,7 +33,10 @@ class ExpenseController extends Controller
                     'category_id' => $category_id
                 ]);
 
-                return redirect('/')->with(['msg' => 'Expense added']);
+                //  return Inertia('Home', ['msg' => 'Expense added']);
+
+                return response()->json(['msg' => 'Expense added']);
+                // return redirect('/')->with(['msg' => 'Expense added']);
             }
         );
     }
@@ -40,6 +44,7 @@ class ExpenseController extends Controller
 
     public function expenseList(Request $request)
     {
+        // sleep(2);
         $userid = $request->header('user_id');
 
         $expenseList = Expense::where('user_id', $userid)->with('category')->orderBy('expense', 'asc')->get();
